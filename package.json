@@ -1,0 +1,14 @@
+{
+  "name": "wordclock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "superstatic"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "superstatic": "6.0.4"
+  }
+}

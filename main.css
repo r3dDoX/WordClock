@@ -1,0 +1,50 @@
+body {
+    font-family: 'Allerta Stencil';
+}
+
+.word-clock {
+    margin: 1em;
+    background-color: darkslategray;
+}
+
+.word-clock td {
+    padding: 0.8em;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.permanent,
+[data-minute="1"] .minute-1,
+[data-minute="2"] .minute-1,
+[data-minute="2"] .minute-2,
+[data-minute="3"] .minute-1,
+[data-minute="3"] .minute-2,
+[data-minute="3"] .minute-3,
+[data-minute="4"] .minute-1,
+[data-minute="4"] .minute-2,
+[data-minute="4"] .minute-3,
+[data-minute="4"] .minute-4,
+[data-bundle="1"] .bundle-1,
+[data-bundle="2"] .bundle-2,
+[data-bundle="3"] .bundle-3,
+[data-bundle="4"] .bundle-4,
+[data-bundle="5"] .bundle-5,
+[data-half="half"] .half,
+[data-prefix="front"] .prefix-front,
+[data-prefix="back"] .prefix-back,
+[data-hour="1"] .hour-1,
+[data-hour="2"] .hour-2,
+[data-hour="3"] .hour-3,
+[data-hour="4"] .hour-4,
+[data-hour="5"] .hour-5,
+[data-hour="6"] .hour-6,
+[data-hour="7"] .hour-7,
+[data-hour="8"] .hour-8,
+[data-hour="9"] .hour-9,
+[data-hour="10"] .hour-10,
+[data-hour="11"] .hour-11,
+[data-hour="0"] .hour-0
+{
+    color: aliceblue;
+    text-shadow: 0 0 3px aliceblue;
+}
