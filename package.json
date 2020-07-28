@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "superstatic"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "superstatic": "6.0.4"
+    "express": "4.17.1"
   }
 }
