@@ -2,6 +2,15 @@ const express = require('express');
 const {exec} = require('child_process');
 const test = require('./ledtest.js');
 
+exec('./install.sh', (error, stdout, stderr) => {
+  if (error) {
+   console.error('could not install ledchain');
+  }
+
+  console.log('installed ledchain');
+});
+
+
 const app = express();
 
 app.use(express.static('assets'));
