@@ -1,6 +1,9 @@
 {
   "version": 2,
   "builds": [
-    { "src": "assets/*", "use": "@vercel/static" }
+    { "src": "./assets/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "assets/$1" }
   ]
 }
