@@ -28,15 +28,18 @@ function updateBuffer(leds) {
 }
 
 let led = 0;
-function round() {
+function test() {
   if (led < LED_COUNT) {
     updateBuffer([led++]);
-    setTimeout(round, 30);
+    setTimeout(test, 30);
   } else if (selectedColor < BLUE) {
     selectedColor++;
     led = 0;
-    setTimeout(round, 30);
+    setTimeout(test, 30);
+  } else {
+    ws.write(new Buffer(LED_COUNT * BYTES_PER_LED));
+    ws.close();
   }
 }
 
-round();
+module.exports = test;
