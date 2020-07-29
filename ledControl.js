@@ -5,9 +5,9 @@ const LED_COUNT = 72;
 const BYTES_PER_LED = 3;
 
 let color = {
-  r: 0xff,
-  g: 0xff,
-  b: 0xff,
+  r: 0x00,
+  g: 0x00,
+  b: 0x00,
 };
 
 const buffer = Buffer.alloc(LED_COUNT * BYTES_PER_LED);
