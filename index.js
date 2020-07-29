@@ -1,23 +1,33 @@
 require('./install');
 const express = require('express');
-const {exec} = require('child_process');
+const configHelper = require('./config');
+const timezone = require('./timezone');
 const ledControl = require('./ledControl');
+
+const config = configHelper.getConfig();
 
 const app = express();
 app.use(express.static('assets'));
 
-app.get('/timezones', (req, res) => {
-  exec('onion time list', (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error Code: ${error.code}, Error Signal: ${error.signal}`);
-      res.send(stderr);
-    }
+app.post('/timezone/:timezoneName/:timezoneString', (req, res) => {
+  const {timezoneName, timezoneString} = req.params;
+  timezone.setTimezone(timezoneName, timezoneString)
+    .then(() => {
+      config.timezone = [timezoneName, timezoneString];
+      return configHelper.saveConfig();
+    })
+    .then(() => res.sendStatus(200))
+    .catch(err => res.send(err));
+});
 
-    const parsedTimezones = stdout.toString().split('\n').map(timezone => timezone.split('\t'));
-    parsedTimezones.shift(); // remove header
-    parsedTimezones.pop(); // remove empty last line
-    res.send(parsedTimezones);
-  });
+app.get('/timezone', (req, res) => {
+  res.send(timezone.getTimezone().join(', '));
+})
+
+app.get('/timezones', (req, res) => {
+  timezone.getTimezones()
+    .then(timezones => res.send(timezones))
+    .catch(err => res.send(err));
 });
 
 app.get('/led/color', (req, res) => {
