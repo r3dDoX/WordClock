@@ -1,8 +1,8 @@
 {
   "color": {
     "r": 150,
-    "g": 150,
-    "b": 150
+    "g": 0,
+    "b": 0
   },
   "timezone": [
     "Europe/Zurich",
