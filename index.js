@@ -25,13 +25,13 @@ app.get('/led/color', (req, res) => {
 });
 
 app.post('/led/on', (req, res) => {
-  ledControl.setColor(0xff, 0xff, 0xff)
-  ledControl.updateChain()
+  ledControl.setColor(0xff, 0xff, 0xff);
+  ledControl.updateChain();
   res.sendStatus(200);
 });
 
 app.post('/led/off', (req, res) => {
-  ledControl.off()
+  ledControl.off();
   res.sendStatus(200);
 });
 
