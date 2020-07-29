@@ -29,7 +29,7 @@ function updateBuffer(leds) {
 
 let led = 0;
 function test() {
-  if (led <== LED_COUNT) {
+  if (led <= LED_COUNT) {
     updateBuffer([led++]);
     setTimeout(test, 30);
   } else if (selectedColor < BLUE) {
@@ -42,4 +42,4 @@ function test() {
   }
 }
 
-module.exports = test;
+test();
