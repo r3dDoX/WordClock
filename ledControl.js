@@ -10,7 +10,7 @@ let color = {
   b: 0xff,
 };
 
-const buffer = new ArrayBuffer(LED_COUNT * BYTES_PER_LED);
+const buffer = Buffer.alloc(LED_COUNT * BYTES_PER_LED);
 
 module.exports = {
   getColor() {
