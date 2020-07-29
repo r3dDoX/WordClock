@@ -36,8 +36,9 @@ app.get('/led/color', (req, res) => {
 
 app.post('/led/color', (req, res) => {
   const {r, g, b} = req.query;
-  ledControl.setColor(r, g, b);
-  res.sendStatus(200);
+  ledControl.setColor(r, g, b)
+    .then(() => res.sendStatus(200))
+    .catch(err => res.send(err));
 });
 
 app.post('/led/on', (req, res) => {

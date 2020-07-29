@@ -1,32 +1,29 @@
 const fs = require('fs');
 const ws = fs.createWriteStream('/dev/ledchain0');
+const configHelper = require('./config');
 
+const config = configHelper.getConfig();
 const LED_COUNT = 72;
 const BYTES_PER_LED = 3;
-
-let color = {
-  r: 0x00,
-  g: 0x00,
-  b: 0x00,
-};
 
 const buffer = Buffer.alloc(LED_COUNT * BYTES_PER_LED);
 
 module.exports = {
   getColor() {
-    return {...color};
+    return {...config.color};
   },
   setColor(r, g, b) {
-    color = {r, g, b}
+    config.color = {r, g, b};
+    return configHelper.saveConfig();
   },
   updateChain() {
     buffer.forEach((_, index) => {
       const ledColor = index % BYTES_PER_LED;
       buffer[index] = ledColor === 0
-        ? color.r
+        ? config.color.r
         : ledColor === 1
-          ? color.g
-          : color.b;
+          ? config.color.g
+          : config.color.b;
     });
     ws.write(buffer);
   },
