@@ -13,9 +13,9 @@ module.exports = {
         if (error) {
           console.error(`Error Code: ${error.code}, Error Signal: ${error.signal}`);
           reject(stderr.toString());
+        } else {
+          resolve(stdout.toString());
         }
-
-        resolve(stdout.toString());
       });
     });
   },
@@ -25,12 +25,15 @@ module.exports = {
         if (error) {
           console.error(`Error Code: ${error.code}, Error Signal: ${error.signal}`);
           reject(stderr.toString());
+        } else {
+          const parsedTimezones = stdout
+            .toString()
+            .split('\n')
+            .map(timezone => timezone.split('\t'));
+          parsedTimezones.shift(); // remove header
+          parsedTimezones.pop(); // remove empty last line
+          resolve(parsedTimezones);
         }
-
-        const parsedTimezones = stdout.toString().split('\n').map(timezone => timezone.split('\t'));
-        parsedTimezones.shift(); // remove header
-        parsedTimezones.pop(); // remove empty last line
-        resolve(parsedTimezones);
       });
     });
   }

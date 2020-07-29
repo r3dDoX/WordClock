@@ -9,8 +9,8 @@ const config = configHelper.getConfig();
 const app = express();
 app.use(express.static('assets'));
 
-app.post('/timezone/:timezoneName/:timezoneString', (req, res) => {
-  const {timezoneName, timezoneString} = req.params;
+app.post('/timezone', (req, res) => {
+  const {timezoneName, timezoneString} = req.query;
   timezone.setTimezone(timezoneName, timezoneString)
     .then(() => {
       config.timezone = [timezoneName, timezoneString];
