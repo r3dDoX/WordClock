@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   document.getElementById('off').addEventListener('click', () => {
     fetch(
-      '/led/on',
+      '/led/off',
       {method: 'POST'}
     )
   });
