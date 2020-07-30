@@ -49,4 +49,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   getCurrentTimezone();
   getCurrentColor();
+  document.getElementById('on').addEventListener('click', () => {
+    fetch(
+      '/led/on',
+      {method: 'POST'}
+    )
+  });
+  document.getElementById('off').addEventListener('click', () => {
+    fetch(
+      '/led/on',
+      {method: 'POST'}
+    )
+  });
 });
