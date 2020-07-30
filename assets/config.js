@@ -1,12 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const currentTimezoneElement = document.getElementById('current-timezone');
   const colorInput = document.getElementById('color');
-
-  function getCurrentTimezone() {
-    fetch('/timezone')
-      .then(timezone => timezone.text())
-      .then(timezone => currentTimezoneElement.innerText = timezone.split(',')[0]);
-  }
+  const timeZonesSelect = document.getElementById('timezones');
 
   function decToHex(decimalNumber) {
     return decimalNumber.toString(16).padStart(2, '0');
@@ -18,25 +12,32 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(({r, b, g}) => colorInput.value = `#${decToHex(r)}${decToHex(g)}${decToHex(b)}`);
   }
 
-  fetch('/timezones')
-    .then(zones => zones.json())
-    .then(parsedZones => {
-      const timeZonesSelect = document.getElementById('timezones');
-      timeZonesSelect.append(...parsedZones.map(zone => {
-        const option = document.createElement('option');
-        option.setAttribute('value', `${zone[0]}|${zone[1]}`);
-        option.innerText = zone[0];
-        return option;
-      }));
-      timeZonesSelect.addEventListener('change', event => {
-        const selectedTimeZone = event.target.value.split('|');
-        fetch(
-          `/timezone?timezoneName=${encodeURIComponent(selectedTimeZone[0])}&timezoneString=${encodeURIComponent(selectedTimeZone[1])}`,
-          {method: 'POST'}
-        )
-          .then(getCurrentTimezone);
-      })
-    });
+  fetch('/timezone')
+    .then(timezone => timezone.text())
+    .then((currentTimezone) => {
+      fetch('/timezones')
+        .then(zones => zones.json())
+        .then(parsedZones => {
+          const timezoneName = currentTimezone.split(',')[0];
+          timeZonesSelect.append(...parsedZones.map(zone => {
+            const option = document.createElement('option');
+            option.setAttribute('value', `${zone[0]}|${zone[1]}`);
+            option.innerText = zone[0];
+            if (zone[0] === timezoneName) {
+              option.setAttribute('selected', 'true');
+            }
+            return option;
+          }));
+        });
+    })
+
+  timeZonesSelect.addEventListener('change', event => {
+    const selectedTimeZone = event.target.value.split('|');
+    fetch(
+      `/timezone?timezoneName=${encodeURIComponent(selectedTimeZone[0])}&timezoneString=${encodeURIComponent(selectedTimeZone[1])}`,
+      {method: 'POST'}
+    );
+  });
 
   colorInput.addEventListener('change', event => {
     const [, r, g, b] = event.target.value.match(/#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/i);
@@ -47,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(getCurrentColor);
   });
 
-  getCurrentTimezone();
   getCurrentColor();
   document.getElementById('on').addEventListener('click', () => {
     fetch(
