@@ -11,4 +11,4 @@ opkg install node-npm;
 npm i;
 
 echo "put this into /etc/rc.local to have it start on boot:"
-echo "npm start --prefix /root >> /root/log.txt 2>&1"
+echo "npm start --prefix /root >> /root/log.txt 2>&1 &"
