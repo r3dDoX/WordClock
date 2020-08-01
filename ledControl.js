@@ -3,7 +3,7 @@ const ws = fs.createWriteStream('/dev/ledchain0');
 const configHelper = require('./config');
 
 const config = configHelper.getConfig();
-const LED_COUNT = 72;
+const LED_COUNT = 150;
 const BYTES_PER_LED = 3;
 
 const buffer = Buffer.alloc(LED_COUNT * BYTES_PER_LED);

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const ws = fs.createWriteStream('/dev/ledchain0');
 
-const LED_COUNT = 72;
+const LED_COUNT = 150;
 const BYTES_PER_LED = 3;
 
 const RED = 0;
