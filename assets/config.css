@@ -1,0 +1,99 @@
+html {
+    font-size: 125%;
+    font-family: 'helvetica neue', arial, verdana, sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: papayawhip;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.element {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 15rem;
+    margin: 1rem;
+}
+
+h1 {
+    margin: 0;
+    padding: 1.5rem;
+    background-color: #2A525C;
+    color: ivory;
+    border-radius: 0.4rem 0.4rem 0 0;
+}
+
+.content {
+    flex: 1 1 auto;
+    background-color: #7B9AA2;
+    padding: 1.5rem;
+    border-radius: 0 0 0.4rem 0.4rem;
+}
+
+input[type="color"] {
+    display: block;
+}
+
+button {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    display: inline-block;
+    padding: 0.6rem 0.8rem;
+    background-color: white;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+
+button:hover {
+    color: white;
+    background-color: #183A42;
+}
+
+button ~ button {
+    margin-left: .5rem;
+}
+
+.select-wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+.select-wrapper::after {
+    position: absolute;
+    right: 0.2rem;
+    top: 0.35rem;
+    width: 1rem;
+    content: ">";
+    color: black;
+    transform: rotate(90deg);
+    pointer-events: none;
+    text-align: center;
+}
+
+select {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    padding: 0.6rem 1.6rem 0.6rem 0.8rem;
+    border-radius: 0.4rem;
+    outline: none;
+    cursor: pointer;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+.select-wrapper:hover select, .select-wrapper:hover::after {
+    background-color: #183A42;
+    color: white;
+}
