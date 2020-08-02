@@ -66,7 +66,6 @@ button ~ button {
 .select-wrapper {
     display: inline-block;
     position: relative;
-    background-color: white;
 }
 
 .select-wrapper::after {
@@ -85,6 +84,7 @@ select {
     -webkit-appearance: none;
     appearance: none;
     border: none;
+    background-color: white;
     padding: 0.6rem 1.6rem 0.6rem 0.8rem;
     border-radius: 0.4rem;
     outline: none;
