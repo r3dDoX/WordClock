@@ -42,7 +42,7 @@ app.post('/led/color', (req, res) => {
 });
 
 app.post('/led/on', (req, res) => {
-  ledControl.updateChain();
+  ledControl.updateChain(req.query.groups || []);
   res.sendStatus(200);
 });
 
