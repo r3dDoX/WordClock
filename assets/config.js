@@ -49,12 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   getCurrentColor();
-  document.getElementById('on').addEventListener('click', () => {
-    fetch(
-      '/led/on',
-      {method: 'POST'}
-    )
-  });
   document.getElementById('off').addEventListener('click', () => {
     fetch(
       '/led/off',

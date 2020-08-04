@@ -41,11 +41,6 @@ app.post('/led/color', (req, res) => {
     .catch(err => res.send(err));
 });
 
-app.post('/led/on', (req, res) => {
-  ledControl.updateChain(req.query.groups || []);
-  res.sendStatus(200);
-});
-
 app.post('/led/off', (req, res) => {
   ledControl.off();
   res.sendStatus(200);
