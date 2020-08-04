@@ -58,7 +58,7 @@ const LED_ARRAY = [
   [NONE, NONE, NONE, NONE, NONE, ZWOELFI, ZWOELFI, ZWOELFI, ZWOELFI, ZWOELFI, ZWOELFI],
 ];
 
-let currentGroups = [];
+let currentGroups = [CONSTANT];
 
 module.exports = {
   getColor() {
