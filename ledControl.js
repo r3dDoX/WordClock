@@ -58,15 +58,19 @@ const LED_ARRAY = [
   [NONE, NONE, NONE, NONE, NONE, ZWÖLFI, ZWÖLFI, ZWÖLFI, ZWÖLFI, ZWÖLFI, ZWÖLFI],
 ];
 
+let currentGroups = [];
+
 module.exports = {
   getColor() {
     return {...config.color};
   },
   setColor(r, g, b) {
     config.color = {r, g, b};
+    this.updateChain(currentGroups);
     return configHelper.saveConfig();
   },
   updateChain(groups) {
+    currentGroups = groups;
     const {r, g, b} = this.getColor();
     for (let row = 0; row < LED_ARRAY.length; row++) {
       for (let col = 0; col < LED_ARRAY[row].length; col++) {
