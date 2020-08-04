@@ -79,7 +79,7 @@ module.exports = {
         const isLit = groups.includes(groupKey);
         for (let i = 0; i < LEDS_PER_LETTER * BYTES_PER_LED; i++) {
           if (isLit) {
-            const colorIndex = ledIndex % 3;
+            const colorIndex = (ledIndex + i) % 3;
             buffer[ledIndex + i] = colorIndex === 0
               ? r
               : colorIndex === 1
