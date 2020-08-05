@@ -5,6 +5,7 @@ const configHelper = require('./config');
 const config = configHelper.getConfig();
 const LED_COUNT = 224;
 const BYTES_PER_LED = 3;
+const LEDS_PER_LETTER = 2;
 
 const buffer = Buffer.alloc(LED_COUNT * BYTES_PER_LED);
 
@@ -22,7 +23,6 @@ const buffer = Buffer.alloc(LED_COUNT * BYTES_PER_LED);
  *
  * Every odd row has to be reversed du to how they will be soldered
  */
-const LEDS_PER_LETTER = 2;
 const NONE = 0;
 const CONSTANT = 1;
 const FOEIF = 2;
