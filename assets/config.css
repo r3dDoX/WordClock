@@ -110,6 +110,7 @@ select::-ms-expand {
 
 #configured-wifis li {
     padding: 0.4rem 0.6rem;
+    background-color: white;
 }
 
 #configured-wifis li:not(:last-child) {
@@ -117,5 +118,5 @@ select::-ms-expand {
 }
 
 #configured-wifis li.enabled {
-    /* tbd */
+    background-color: #6BCFE8;
 }
