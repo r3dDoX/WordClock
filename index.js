@@ -3,6 +3,7 @@ const express = require('express');
 const configHelper = require('./config');
 const timezone = require('./timezone');
 const ledControl = require('./ledControl');
+const wifi =require('./wifi.js');
 
 const config = configHelper.getConfig();
 
@@ -17,7 +18,7 @@ app.post('/timezone', (req, res) => {
       return configHelper.saveConfig();
     })
     .then(() => res.sendStatus(200))
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).send(err));
 });
 
 app.get('/timezone', (req, res) => {
@@ -27,7 +28,7 @@ app.get('/timezone', (req, res) => {
 app.get('/timezones', (req, res) => {
   timezone.getTimezones()
     .then(timezones => res.send(timezones))
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).send(err));
 });
 
 app.get('/led/color', (req, res) => {
@@ -38,12 +39,18 @@ app.post('/led/color', (req, res) => {
   const {r, g, b} = req.query;
   ledControl.setColor(parseInt(r, 10), parseInt(g, 10), parseInt(b, 10))
     .then(() => res.sendStatus(200))
-    .catch(err => res.send(err));
+    .catch(err => res.status(500).send(err));
 });
 
 app.post('/led/off', (req, res) => {
   ledControl.off();
   res.sendStatus(200);
+});
+
+app.get('/wifi/scan', (req, res) => {
+  wifi.scanForWifiNetworks()
+    .then(networks => res.send(networks))
+    .catch(err => res.status(500).send(err));
 });
 
 app.listen(3000);
