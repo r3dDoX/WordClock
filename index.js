@@ -59,4 +59,4 @@ app.get('/wifi/list', (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-app.listen(3000);
+app.listen(3000, () => console.log('Webserver started'));
