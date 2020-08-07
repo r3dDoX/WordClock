@@ -20,7 +20,11 @@ module.exports = {
           console.error(`Error Code: ${error.code}, Error Signal: ${error.signal}`);
           reject(stderr.toString());
         } else {
-          resolve(JSON.parse(stdout.toString()).results.map(network => network.ssid));
+          resolve(JSON.parse(stdout.toString()).results.map(network => ({
+            ssid: network.ssid,
+            enabled: network.enabled,
+            encryption: network.encryption,
+          })));
         }
       });
     });

@@ -99,3 +99,23 @@ select::-ms-expand {
     background-color: #183A42;
     color: white;
 }
+
+#configured-wifis {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-radius: 0.4rem;
+    overflow: hidden;
+}
+
+#configured-wifis li {
+    padding: 0.4rem 0.6rem;
+}
+
+#configured-wifis li:not(:last-child) {
+    border-bottom: 1px solid black;
+}
+
+#configured-wifis li.enabled {
+    /* tbd */
+}
