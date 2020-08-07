@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const colorInput = document.getElementById('color');
   const timeZonesSelect = document.getElementById('timezones');
+  const configuredWifiList = document.getElementById('configured-wifis');
 
   function decToHex(decimalNumber) {
     return decimalNumber.toString(16).padStart(2, '0');
@@ -10,6 +11,20 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch('/led/color')
       .then(color => color.json())
       .then(({r, b, g}) => colorInput.value = `#${decToHex(r)}${decToHex(g)}${decToHex(b)}`);
+  }
+
+  function updateConfiguredWifis() {
+    fetch('/wifi/list')
+      .then(ssids => {
+        configuredWifiList.append(
+          ssids.map(ssid => {
+            const li = document.createElement('li');
+            li.innerText = ssid;
+            li.value = ssid;
+            return li;
+          })
+        );
+      });
   }
 
   fetch('/timezone')
@@ -48,11 +63,13 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(getCurrentColor);
   });
 
-  getCurrentColor();
   document.getElementById('off').addEventListener('click', () => {
     fetch(
       '/led/off',
       {method: 'POST'}
     )
   });
+
+  getCurrentColor();
+  updateConfiguredWifis();
 });

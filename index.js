@@ -53,4 +53,10 @@ app.get('/wifi/scan', (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
+app.get('/wifi/list', (req, res) => {
+  wifi.getConfiguredWifiNetworks()
+    .then(ssids => res.send(ssids))
+    .catch(err => res.status(500).send(err));
+});
+
 app.listen(3000);

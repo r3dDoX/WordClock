@@ -13,4 +13,16 @@ module.exports = {
       });
     });
   },
+  getConfiguredWifiNetworks() {
+    return new Promise((resolve, reject) => {
+      exec('wifisetup list', (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error Code: ${error.code}, Error Signal: ${error.signal}`);
+          reject(stderr.toString());
+        } else {
+          resolve(JSON.parse(stdout.toString()).results.map(network => network.ssid));
+        }
+      });
+    });
+  },
 }
