@@ -15,15 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateConfiguredWifis() {
     fetch('/wifi/list')
+      .then(ssids => ssids.json())
       .then(ssids => {
-        configuredWifiList.append(
-          ssids.map(ssid => {
-            const li = document.createElement('li');
-            li.innerText = ssid;
-            li.value = ssid;
-            return li;
-          })
-        );
+        ssids.forEach(ssid => {
+          const li = document.createElement('li');
+          li.innerText = ssid;
+          li.value = ssid;
+          configuredWifiList.appendChild(li);
+        });
       });
   }
 
