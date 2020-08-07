@@ -14,17 +14,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateConfiguredWifis() {
+    configuredWifiList.innerHTML = '';
     fetch('/wifi/list')
       .then(networks => networks.json())
       .then(networks => {
         networks.forEach(network => {
           const li = document.createElement('li');
-          li.innerText = network.ssid;
-          li.value = JSON.stringify(network);
+          li.innerHTML = `
+            <span>${network.ssid}</span>
+            <div>
+                <button id="delete">Löschen</button>
+            </div>
+          `;
           if (network.enabled) {
             li.classList.add('enabled');
           }
           configuredWifiList.appendChild(li);
+          li.querySelector('#delete').addEventListener('click', () => {
+            fetch(`/wifi/${encodeURIComponent(network.ssid)}`, {method: 'DELETE'})
+              .then(updateConfiguredWifis);
+          })
         });
       });
   }

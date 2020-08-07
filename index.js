@@ -3,7 +3,7 @@ const express = require('express');
 const configHelper = require('./config');
 const timezone = require('./timezone');
 const ledControl = require('./ledControl');
-const wifi =require('./wifi.js');
+const wifi = require('./wifi.js');
 
 const config = configHelper.getConfig();
 
@@ -57,6 +57,12 @@ app.get('/wifi/list', (req, res) => {
   wifi.getConfiguredWifiNetworks()
     .then(ssids => res.send(ssids))
     .catch(err => res.status(500).send(err));
+});
+
+app.delete('/wifi/:ssid', (req, res) => {
+  wifi.removeConfiguredWifiNetwork(req.params.ssid)
+    .then(() => res.sendStatus(200))
+    .catch(err => err.status(500).send(err));
 });
 
 app.listen(3000, () => console.log('Webserver started'));

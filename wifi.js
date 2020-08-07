@@ -29,4 +29,16 @@ module.exports = {
       });
     });
   },
+  removeConfiguredWifiNetwork(ssid) {
+    return new Promise((resolve, reject) => {
+      exec(`wifisetup remove -ssid "${ssid}"`, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error Code: ${error.code}, Error Signal: ${error.signal}`);
+          reject(stderr.toString());
+        } else {
+          resolve();
+        }
+      });
+    });
+  },
 }
