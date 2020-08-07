@@ -109,6 +109,9 @@ select::-ms-expand {
 }
 
 #configured-wifis li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 0.4rem 0.6rem;
     background-color: white;
 }
