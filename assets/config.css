@@ -100,7 +100,7 @@ select::-ms-expand {
     color: white;
 }
 
-#configured-wifis {
+#configured-wifis, #found-wifis {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -108,7 +108,7 @@ select::-ms-expand {
     overflow: hidden;
 }
 
-#configured-wifis li {
+#configured-wifis li, #found-wifis li {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -116,10 +116,15 @@ select::-ms-expand {
     background-color: white;
 }
 
-#configured-wifis li:not(:last-child) {
+#configured-wifis li:not(:last-child), #found-wifis li:not(:last-child) {
     border-bottom: 1px solid black;
 }
 
 #configured-wifis li.enabled {
     background-color: #6BCFE8;
+}
+
+#scan-wifis {
+    display: block;
+    margin: 1rem auto;
 }

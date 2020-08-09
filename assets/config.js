@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const colorInput = document.getElementById('color');
   const timeZonesSelect = document.getElementById('timezones');
   const configuredWifiList = document.getElementById('configured-wifis');
+  const foundWifiList = document.getElementById('found-wifis');
 
   function decToHex(decimalNumber) {
     return decimalNumber.toString(16).padStart(2, '0');
@@ -14,10 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateConfiguredWifis() {
-    configuredWifiList.innerHTML = '';
+    configuredWifiList.innerHTML = '<li>Wifi Einstellungen speichern...</li>';
     fetch('/wifi/list')
       .then(networks => networks.json())
       .then(networks => {
+        configuredWifiList.innerHTML = '';
         networks.forEach(network => {
           const li = document.createElement('li');
           li.innerHTML = `
@@ -35,6 +37,27 @@ document.addEventListener("DOMContentLoaded", () => {
               .then(updateConfiguredWifis);
           })
         });
+      });
+  }
+
+  function scanForWifis() {
+    foundWifiList.innerHTML = '<li>Scanne...</li>';
+    fetch('/wifi/scan')
+      .then(networks => networks.json())
+      .then(networks => {
+        foundWifiList.innerHTML = '';
+        networks
+          .filter(network => network.ssid !== '')
+          .map(network => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+              <span>${network.ssid}</span>
+              <div>
+                  <button id="connect">Verbinden</button>
+              </div>
+            `;
+            foundWifiList.appendChild(li);
+          });
       });
   }
 
@@ -80,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
       {method: 'POST'}
     )
   });
+  document.getElementById('scan-wifis').addEventListener('click', scanForWifis);
 
   getCurrentColor();
   updateConfiguredWifis();
