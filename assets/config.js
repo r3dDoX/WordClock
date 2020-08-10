@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         networks.forEach(network => {
           const li = document.createElement('li');
           li.innerHTML = `
-            <span>${network.ssid}</span>
+            <span>${network.ssid} | ${network.enabled ? 'Verbunden' : 'Getrennt'}</span>
             <div>
                 <button id="delete">Löschen</button>
             </div>
