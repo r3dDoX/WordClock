@@ -8,6 +8,7 @@ const wifi = require('./wifi.js');
 const config = configHelper.getConfig();
 
 const app = express();
+app.use(express.json());
 app.use(express.static('assets'));
 
 app.post('/timezone', (req, res) => {
@@ -61,6 +62,12 @@ app.get('/wifi/list', (req, res) => {
 
 app.delete('/wifi/:ssid', (req, res) => {
   wifi.removeConfiguredWifiNetwork(req.params.ssid)
+    .then(() => res.sendStatus(200))
+    .catch(err => err.status(500).send(err));
+});
+
+app.post('/wifi/:ssid', (req,res) => {
+  wifi.addWifiConfiguration(req.params.ssid, req.body.encryption, req.body.password)
     .then(() => res.sendStatus(200))
     .catch(err => err.status(500).send(err));
 });

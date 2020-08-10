@@ -41,4 +41,16 @@ module.exports = {
       });
     });
   },
+  addWifiConfiguration(ssid, encryption, password) {
+    return new Promise((resolve, reject) => {
+      exec(`wifisetup add -ssid "${ssid}" -encr "${encryption}" -password "${password}"`, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error Code: ${error.code}, Error Signal: ${error.signal}`);
+          reject(stderr.toString());
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
 }

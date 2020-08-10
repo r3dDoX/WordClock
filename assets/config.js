@@ -48,15 +48,21 @@ document.addEventListener("DOMContentLoaded", () => {
         foundWifiList.innerHTML = '';
         networks
           .filter(network => network.ssid !== '')
-          .map(network => {
+          .map(({encryption, ssid}) => {
             const li = document.createElement('li');
             li.innerHTML = `
-              <span>${network.ssid}</span>
+              <span>${ssid}</span>
               <div>
                   <button id="connect">Verbinden</button>
               </div>
             `;
             foundWifiList.appendChild(li);
+            li.querySelector('#connect').addEventListener('click', () => {
+              fetch(
+                `/wifi/${ssid}`,
+                {method: 'POST', body: JSON.stringify({encryption, password: prompt('Password')})}
+              ).then(updateConfiguredWifis);
+            })
           });
       });
   }
