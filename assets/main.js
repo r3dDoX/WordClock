@@ -1,7 +1,5 @@
 const body = document.body;
 
-let currentMinute;
-
 function getMinute(minutes) {
     return minutes % 5;
 }
@@ -58,11 +56,8 @@ function updateClock(minutes, hours) {
 
 function updateInterval() {
     const currentDate = new Date();
-    setTimeout(updateInterval, 1000 - currentDate.getMilliseconds());
-    if (currentMinute !== currentDate.getMinutes()) {
-        currentMinute = currentDate.getMinutes();
-        updateClock(currentDate.getMinutes(), currentDate.getHours());
-    }
+    setTimeout(updateInterval, (60 - currentDate.getSeconds()) * 1000);
+    updateClock(currentDate.getMinutes(), currentDate.getHours());
 }
 
 updateInterval();
