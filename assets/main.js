@@ -56,7 +56,11 @@ function updateClock(minutes, hours) {
 
 function updateInterval() {
     const currentDate = new Date();
-    setTimeout(updateInterval, (60 - currentDate.getSeconds()) * 1000);
+    const currentSeconds = currentDate.getSeconds();
+    const timerSeconds = 60 - currentSeconds;
+    const timerMilliseconds = timerSeconds * 1000;
+    console.log('next update at: ' + new Date(currentDate.getTime() + timerMilliseconds));
+    setTimeout(updateInterval, timerMilliseconds);
     updateClock(currentDate.getMinutes(), currentDate.getHours());
 }
 
