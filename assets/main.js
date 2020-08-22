@@ -1,5 +1,7 @@
 const body = document.body;
 
+let currentMinute;
+
 function getMinute(minutes) {
     return minutes % 5;
 }
@@ -56,12 +58,11 @@ function updateClock(minutes, hours) {
 
 function updateInterval() {
     const currentDate = new Date();
-    const currentSeconds = currentDate.getSeconds();
-    const timerSeconds = 60 - currentSeconds;
-    const timerMilliseconds = timerSeconds * 1000;
-    console.log('next update at: ' + new Date(currentDate.getTime() + timerMilliseconds));
-    setTimeout(updateInterval, timerMilliseconds);
-    updateClock(currentDate.getMinutes(), currentDate.getHours());
+    setTimeout(updateInterval, 1000 - currentDate.getMilliseconds());
+    if (currentMinute !== currentDate.getMinutes()) {
+        currentMinute = currentDate.getMinutes();
+        updateClock(currentDate.getMinutes(), currentDate.getHours());
+    }
 }
 
 updateInterval();
