@@ -76,15 +76,19 @@ module.exports = {
     const color = this.getColor();
     for (let row = 0; row < LED_ARRAY.length; row++) {
       for (let col = 0; col < LED_ARRAY[row].length; col++) {
-        const groupKey = LED_ARRAY[row][col];
-        const ledIndex = LEDS_PER_LETTER * BYTES_PER_LED * (row * LED_ARRAY[row].length + col);
-        setLEDColor(ledIndex, LEDS_PER_LETTER, groups.includes(groupKey) ? color : COLOR_OFF);
+        setLEDColor(
+          LEDS_PER_LETTER * BYTES_PER_LED * (row * LED_ARRAY[row].length + col),
+          LEDS_PER_LETTER,
+          groups.includes(LED_ARRAY[row][col]) ? color : COLOR_OFF,
+        );
       }
     }
     for (let minute = 1; minute < 5; minute++) {
-      const isLit = minutes !== 0 && minute <= minutes;
-      const ledIndex = LED_COUNT - (4 - minute);
-      setLEDColor(ledIndex, 1, isLit ? color : COLOR_OFF);
+      setLEDColor(
+        LED_COUNT - (4 - minute),
+        1,
+        minutes !== 0 && minute <= minutes ? color : COLOR_OFF,
+      );
     }
     ws.write(buffer);
   },
