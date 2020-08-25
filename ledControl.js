@@ -6,6 +6,7 @@ const config = configHelper.getConfig();
 const LED_COUNT = 224;
 const BYTES_PER_LED = 3;
 const LEDS_PER_LETTER = 2;
+const COLOR_OFF = {r: 0x00, g: 0x00, b: 0x00};
 
 const buffer = Buffer.alloc(LED_COUNT * BYTES_PER_LED);
 
@@ -21,7 +22,7 @@ const buffer = Buffer.alloc(LED_COUNT * BYTES_PER_LED);
  * Z Ä H N I R B E L F I
  * Z W Ö L F I A M U H R
  *
- * Every odd row has to be reversed du to how they will be soldered
+ * Every odd row has to be reversed due to how they will be soldered
  */
 const NONE = 0;
 const CONSTANT = 1;
@@ -59,6 +60,7 @@ const LED_ARRAY = [
 ];
 
 let currentGroups = [CONSTANT, FOEIF, VOR, HALBI, VIERI];
+let currentMinutes = 0;
 
 module.exports = {
   getColor() {
@@ -66,35 +68,39 @@ module.exports = {
   },
   setColor(r, g, b) {
     config.color = {r, g, b};
-    this.updateChain(currentGroups);
+    this.updateChain(currentGroups, currentMinutes);
     return configHelper.saveConfig();
   },
-  updateChain(groups) {
+  updateChain(groups, minutes) {
     currentGroups = groups;
-    const {r, g, b} = this.getColor();
+    const color = this.getColor();
     for (let row = 0; row < LED_ARRAY.length; row++) {
       for (let col = 0; col < LED_ARRAY[row].length; col++) {
         const groupKey = LED_ARRAY[row][col];
         const ledIndex = LEDS_PER_LETTER * BYTES_PER_LED * (row * LED_ARRAY[row].length + col);
-        const isLit = groups.includes(groupKey);
-        for (let i = 0; i < LEDS_PER_LETTER * BYTES_PER_LED; i++) {
-          if (isLit) {
-            const colorIndex = (ledIndex + i) % 3;
-            buffer[ledIndex + i] = colorIndex === 0
-              ? r
-              : colorIndex === 1
-                ? g
-                : b;
-          } else {
-            buffer[ledIndex + i] = 0x00;
-          }
-        }
+        setLEDColor(ledIndex, LEDS_PER_LETTER, groups.includes(groupKey) ? color : COLOR_OFF);
       }
+    }
+    for (let minute = 1; minute < 5; minute++) {
+      const isLit = minutes !== 0 && minute <= minutes;
+      const ledIndex = LED_COUNT - (4 - minute);
+      setLEDColor(ledIndex, 1, isLit ? color : COLOR_OFF);
     }
     ws.write(buffer);
   },
   off() {
     buffer.forEach((_, index) => buffer[index] = 0x00);
     ws.write(buffer);
+  }
+}
+
+function setLEDColor(ledIndex, amount, {r, g, b}) {
+  for (let i = 0; i < amount * BYTES_PER_LED; i++) {
+    const colorIndex = (ledIndex + i) % 3;
+    buffer[ledIndex + i] = colorIndex === 0
+      ? r
+      : colorIndex === 1
+        ? g
+        : b;
   }
 }
