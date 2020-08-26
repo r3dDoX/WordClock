@@ -86,7 +86,7 @@ module.exports = {
     }
     for (let minute = 1; minute < 5; minute++) {
       setLEDColor(
-        LED_COUNT - (4 - minute),
+        BYTES_PER_LED * (LED_COUNT - (4 - minute)),
         1,
         minutes !== 0 && minute <= minutes ? color : COLOR_OFF,
       );
