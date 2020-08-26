@@ -59,7 +59,7 @@ const LED_ARRAY = [
   [NONE, NONE, NONE, NONE, NONE, ZWOELFI, ZWOELFI, ZWOELFI, ZWOELFI, ZWOELFI, ZWOELFI],
 ];
 
-let currentGroups = [CONSTANT, FOEIF, VOR, HALBI, VIERI];
+let currentGroups = [CONSTANT];
 let currentMinutes = 0;
 
 module.exports = {
@@ -95,7 +95,28 @@ module.exports = {
   off() {
     buffer.forEach((_, index) => buffer[index] = 0x00);
     ws.write(buffer);
-  }
+  },
+  NONE,
+  CONSTANT,
+  FOEIF,
+  ZAEH,
+  VIERTU,
+  ZWAENZG,
+  HALBI,
+  EIS,
+  ZWOEI,
+  DRUE,
+  VIERI,
+  FOEIFI,
+  SAECHSI,
+  SEBNI,
+  ACHTI,
+  NUENI,
+  ZAEHNI,
+  ELFI,
+  ZWOELFI,
+  VOR,
+  AB,
 }
 
 function setLEDColor(ledIndex, amount, {r, g, b}) {

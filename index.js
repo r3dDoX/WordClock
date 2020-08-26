@@ -3,7 +3,8 @@ const express = require('express');
 const configHelper = require('./config');
 const timezone = require('./timezone');
 const ledControl = require('./ledControl');
-const wifi = require('./wifi.js');
+const wifi = require('./wifi');
+const clock = require('./clock');
 
 const config = configHelper.getConfig();
 
@@ -73,3 +74,4 @@ app.post('/wifi/:ssid', (req,res) => {
 });
 
 app.listen(3000, () => console.log('Webserver started'));
+clock();
