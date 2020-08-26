@@ -73,6 +73,7 @@ module.exports = {
   },
   updateChain(groups, minutes) {
     currentGroups = groups;
+    currentMinutes = minutes;
     const color = this.getColor();
     for (let row = 0; row < LED_ARRAY.length; row++) {
       for (let col = 0; col < LED_ARRAY[row].length; col++) {
