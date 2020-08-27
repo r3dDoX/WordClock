@@ -76,7 +76,7 @@ function updateClock(minutes, hours) {
       ledControl.CONSTANT,
       getBundle(roundedMinutes),
       getHalf(minutes),
-      getPrefix(minutes),
+      getPrefix(roundedMinutes),
       getHours(minutes, hours),
     ].filter(value => value !== undefined),
     getMinute(minutes)
