@@ -1,5 +1,8 @@
 opkg update;
 
+# install openssl for https webserver
+opkg install px5g-standalone libustream-openssl
+
 # install ledchain kernel module
 opkg install p44-ledchain;
 
