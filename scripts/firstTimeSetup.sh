@@ -8,7 +8,7 @@ opkg install node;
 opkg install node-npm;
 
 # install project
-npm i;
+npm i --production;
 
 echo "put this into /etc/rc.local to have it start on boot:"
 echo "npm start --prefix /root >> /root/log.txt 2>&1 &"

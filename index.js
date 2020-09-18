@@ -11,6 +11,7 @@ const config = configHelper.getConfig();
 const app = express();
 app.use(express.json());
 app.use(express.static('assets'));
+app.use('/pickr', express.static('node_modules/@simonwebp/pickr/dist'))
 
 app.post('/timezone', (req, res) => {
   const {timezoneName, timezoneString} = req.query;
