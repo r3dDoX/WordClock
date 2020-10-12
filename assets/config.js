@@ -60,7 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
             li.querySelector('#connect').addEventListener('click', () => {
               fetch(
                 `/wifi/${ssid}`,
-                {method: 'POST', body: JSON.stringify({encryption, password: prompt('Password')})}
+                {
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
+                  method: 'POST',
+                  body: JSON.stringify({encryption, password: prompt('Password')})
+                }
               ).then(updateConfiguredWifis);
             })
           });
